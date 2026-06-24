@@ -14,6 +14,8 @@ const { login } = require('../controllers/authController');
 
 router.post('/login', login);
 
+router.get('/health', (req, res) => res.status(200).send('OK'));
+
 router.post('/contact', submitContact);
 router.get('/github-projects', fetchProjects); // Original Github fetch
 

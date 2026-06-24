@@ -27,13 +27,12 @@ const Navbar = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'glass py-4 border-b border-gray-800' : 'bg-transparent py-6'
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'glass py-4 border-b border-gray-800' : 'bg-transparent py-6'
+        }`}
     >
-      <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-        <a href="#" className="text-xl font-bold font-geist tracking-tighter text-white">
-          SM<span className="text-primary-main">.</span>
+      <div className="max-w-full mx-auto px-6 flex justify-between items-center">
+        <a href="#" className="flex items-center">
+          <img src="/logo.png" alt="Logo" className="h-16 md:h-20 w-auto object-contain" />
         </a>
         {/* Desktop nav links */}
         <div className="hidden md:flex gap-8">
@@ -49,14 +48,14 @@ const Navbar = () => {
           ))}
         </div>
         <div className="flex items-center gap-3">
-          <a 
-            href="#contact" 
+          <a
+            href="#contact"
             className="hidden md:inline-flex px-5 py-2 rounded-full text-sm font-medium text-white bg-white/10 hover:bg-white/20 border border-white/10 transition-all glow-border"
           >
             Hire Me
           </a>
           {/* Mobile hamburger */}
-          <button 
+          <button
             onClick={() => setMobileOpen(!mobileOpen)}
             className="md:hidden p-2 text-white"
           >
@@ -85,7 +84,7 @@ const Navbar = () => {
                   {link.name}
                 </a>
               ))}
-              <a 
+              <a
                 href="#contact"
                 onClick={() => setMobileOpen(false)}
                 className="inline-flex justify-center px-5 py-2.5 rounded-full text-sm font-medium text-white bg-primary-main/20 border border-primary-main/30 hover:bg-primary-main transition-all"
