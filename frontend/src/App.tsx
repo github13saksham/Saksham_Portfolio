@@ -4,6 +4,7 @@ import Footer from './components/Footer';
 import Hero from './sections/Hero';
 import About from './sections/About';
 import Skills from './sections/Skills';
+import DetailedSkills from './sections/DetailedSkills';
 import Projects from './sections/Projects';
 import Experience from './sections/Experience';
 import Certificates from './sections/Certificates';
@@ -33,12 +34,13 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-background text-gray-100 font-sans selection:bg-primary-main selection:text-white">
+    <div className="min-h-screen bg-transparent text-gray-100 font-sans selection:bg-white/20 selection:text-white">
       <Navbar />
       <main>
         <Hero />
         <About />
         <Skills />
+        <DetailedSkills />
         <Projects />
         <Experience />
         <Certificates />

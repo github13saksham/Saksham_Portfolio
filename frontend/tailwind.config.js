@@ -4,17 +4,19 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    fontFamily: {
+      sans: ['Poppins', 'sans-serif'],
+      geist: ['Geist', 'sans-serif'],
+      nura: ['"Clash Display"', 'sans-serif'],
+    },
     extend: {
       colors: {
         background: "#0A0A0A",
         primary: {
-          light: "#A07CFE",
-          main: "#8A2BE2",
-          dark: "#4B0082"
+          light: "#ff4d4d",
+          main: "#e60000",
+          dark: "#990000"
         }
-      },
-      fontFamily: {
-        sans: ['Inter', 'Geist', 'sans-serif'],
       },
       spacing: {
         '8px': '8px',

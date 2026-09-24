@@ -3,10 +3,10 @@ import { MapPinIcon, GraduationCapIcon, TerminalIcon, CpuIcon, SparklesIcon } fr
 
 const About = () => {
   return (
-    <section id="about" className="py-24 relative overflow-hidden bg-black/40">
+    <section id="about" className="py-24 relative overflow-hidden">
       {/* Background Ambience */}
-      <div className="absolute top-0 right-0 w-[40vw] h-[40vw] bg-primary-dark/5 blur-[120px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[30vw] h-[30vw] bg-purple-900/10 blur-[100px] rounded-full pointer-events-none" />
+      <div className="absolute top-0 right-0 w-[40vw] h-[40vw] bg-white/5 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[30vw] h-[30vw] bg-white/5 blur-[100px] rounded-full pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
@@ -23,8 +23,8 @@ const About = () => {
               <SparklesIcon size={14} /> Get to know me
             </div>
             
-            <h2 className="text-3xl md:text-5xl font-bold font-geist mb-6 text-white tracking-tight">
-              About <span className="text-primary-main">Me</span>
+            <h2 className="text-4xl md:text-6xl font-medium font-nura tracking-tighter mb-6 text-transparent bg-clip-text bg-gradient-to-b from-white to-white/40">
+              About Me
             </h2>
             
             <div className="space-y-6 text-gray-300 text-base md:text-lg leading-relaxed relative z-10">
@@ -55,14 +55,14 @@ const About = () => {
             {/* Card 1: Education */}
             <motion.div 
               whileHover={{ y: -5, scale: 1.02 }}
-              className="glass p-6 md:p-8 rounded-2xl border border-white/10 hover:border-blue-500/50 hover:bg-gradient-to-br hover:from-white/10 hover:to-blue-900/10 transition-all duration-300 group shadow-[0_0_30px_rgba(0,0,0,0.5)] relative overflow-hidden"
+              className="glass p-6 md:p-8 rounded-2xl border border-white/10 hover:border-white/20 hover:bg-gradient-to-br hover:from-white/10 hover:to-white/5 transition-all duration-300 group shadow-[0_0_30px_rgba(0,0,0,0.5)] relative overflow-hidden"
             >
-              <div className="absolute -right-6 -top-6 w-24 h-24 bg-blue-500/20 rounded-full blur-2xl group-hover:bg-blue-500/40 transition-all duration-500" />
-              <div className="w-14 h-14 bg-gradient-to-br from-blue-500/20 to-blue-600/10 rounded-xl flex items-center justify-center text-blue-400 mb-6 group-hover:scale-110 shadow-lg shadow-blue-500/10 transition-transform border border-blue-500/20">
+              <div className="absolute -right-6 -top-6 w-24 h-24 bg-white/5 rounded-full blur-2xl group-hover:bg-white/10 transition-all duration-500" />
+              <div className="w-14 h-14 bg-gradient-to-br from-white/20 to-white/10 rounded-xl flex items-center justify-center text-white mb-6 group-hover:scale-110 shadow-lg shadow-white/10 transition-transform border border-white/20">
                 <GraduationCapIcon size={26} />
               </div>
-              <h3 className="text-xl font-bold text-white mb-2 relative z-10">Academic Excellence</h3>
-              <p className="text-sm text-gray-400 relative z-10">
+              <h3 className="text-xl font-bold text-white mb-2 relative z-10 font-geist">Academic Excellence</h3>
+              <p className="text-sm text-gray-400 relative z-10 font-geist">
                 Sharpening expertise with a rigorous B.Tech in CSE (<span className="text-white font-medium glow-text">AI Specialization</span>) at Sharda University.
               </p>
             </motion.div>
@@ -70,14 +70,14 @@ const About = () => {
             {/* Card 2: Location */}
             <motion.div 
               whileHover={{ y: -5, scale: 1.02 }}
-              className="glass p-6 md:p-8 rounded-2xl border border-white/10 hover:border-primary-main/50 hover:bg-gradient-to-br hover:from-white/10 hover:to-primary-main/10 transition-all duration-300 group shadow-[0_0_30px_rgba(0,0,0,0.5)] relative overflow-hidden"
+              className="glass p-6 md:p-8 rounded-2xl border border-white/10 hover:border-white/20 hover:bg-gradient-to-br hover:from-white/10 hover:to-white/5 transition-all duration-300 group shadow-[0_0_30px_rgba(0,0,0,0.5)] relative overflow-hidden"
             >
-              <div className="absolute -left-6 -bottom-6 w-24 h-24 bg-primary-main/20 rounded-full blur-2xl group-hover:bg-primary-main/40 transition-all duration-500" />
-              <div className="w-14 h-14 bg-gradient-to-br from-primary-main/20 to-primary-light/10 rounded-xl flex items-center justify-center text-primary-main mb-6 group-hover:scale-110 shadow-lg shadow-primary-main/10 transition-transform border border-primary-main/20">
+              <div className="absolute -left-6 -bottom-6 w-24 h-24 bg-white/5 rounded-full blur-2xl group-hover:bg-white/10 transition-all duration-500" />
+              <div className="w-14 h-14 bg-gradient-to-br from-white/20 to-white/10 rounded-xl flex items-center justify-center text-white mb-6 group-hover:scale-110 shadow-lg shadow-white/10 transition-transform border border-white/20">
                 <MapPinIcon size={26} />
               </div>
-              <h3 className="text-xl font-bold text-white mb-2 relative z-10">Global Mindset</h3>
-              <p className="text-sm text-gray-400 relative z-10">
+              <h3 className="text-xl font-bold text-white mb-2 relative z-10 font-geist">Global Mindset</h3>
+              <p className="text-sm text-gray-400 relative z-10 font-geist">
                 Operating from <span className="text-white font-medium glow-text">India</span>, engineered to collaborate asynchronously across diverse, high-performing global teams.
               </p>
             </motion.div>
@@ -85,14 +85,14 @@ const About = () => {
             {/* Card 3: Full Stack */}
             <motion.div 
               whileHover={{ y: -5, scale: 1.02 }}
-              className="glass p-6 md:p-8 rounded-2xl border border-white/10 hover:border-purple-500/50 hover:bg-gradient-to-br hover:from-white/10 hover:to-purple-900/10 transition-all duration-300 group shadow-[0_0_30px_rgba(0,0,0,0.5)] relative overflow-hidden"
+              className="glass p-6 md:p-8 rounded-2xl border border-white/10 hover:border-white/20 hover:bg-gradient-to-br hover:from-white/10 hover:to-white/5 transition-all duration-300 group shadow-[0_0_30px_rgba(0,0,0,0.5)] relative overflow-hidden"
             >
-              <div className="absolute -right-6 -bottom-6 w-24 h-24 bg-purple-500/20 rounded-full blur-2xl group-hover:bg-purple-500/40 transition-all duration-500" />
-              <div className="w-14 h-14 bg-gradient-to-br from-purple-500/20 to-purple-600/10 rounded-xl flex items-center justify-center text-purple-400 mb-6 group-hover:scale-110 shadow-lg shadow-purple-500/10 transition-transform border border-purple-500/20">
+              <div className="absolute -right-6 -bottom-6 w-24 h-24 bg-white/5 rounded-full blur-2xl group-hover:bg-white/10 transition-all duration-500" />
+              <div className="w-14 h-14 bg-gradient-to-br from-white/20 to-white/10 rounded-xl flex items-center justify-center text-white mb-6 group-hover:scale-110 shadow-lg shadow-white/10 transition-transform border border-white/20">
                 <TerminalIcon size={26} />
               </div>
-              <h3 className="text-xl font-bold text-white mb-2 relative z-10">Full Stack Mastery</h3>
-              <p className="text-sm text-gray-400 relative z-10">
+              <h3 className="text-xl font-bold text-white mb-2 relative z-10 font-geist">Full Stack Mastery</h3>
+              <p className="text-sm text-gray-400 relative z-10 font-geist">
                 Commanding modern MERN & PERN ecosystems to engineer resilient pipelines and flawless frontends.
               </p>
             </motion.div>
@@ -100,15 +100,15 @@ const About = () => {
             {/* Card 4: AI & Future */}
             <motion.div 
               whileHover={{ y: -5, scale: 1.02 }}
-              className="glass p-6 md:p-8 rounded-2xl border border-white/10 hover:border-emerald-500/50 hover:bg-gradient-to-br hover:from-white/10 hover:to-emerald-900/10 transition-all duration-300 group shadow-[0_0_30px_rgba(0,0,0,0.5)] relative overflow-hidden"
+              className="glass p-6 md:p-8 rounded-2xl border border-white/10 hover:border-white/20 hover:bg-gradient-to-br hover:from-white/10 hover:to-white/5 transition-all duration-300 group shadow-[0_0_30px_rgba(0,0,0,0.5)] relative overflow-hidden"
             >
-              <div className="absolute -left-6 -top-6 w-24 h-24 bg-emerald-500/20 rounded-full blur-2xl group-hover:bg-emerald-500/40 transition-all duration-500" />
-              <div className="w-14 h-14 bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 rounded-xl flex items-center justify-center text-emerald-400 mb-6 group-hover:scale-110 shadow-lg shadow-emerald-500/10 transition-transform border border-emerald-500/20 overflow-hidden relative">
-                <div className="absolute inset-0 bg-emerald-400/20 blur-xl group-hover:bg-emerald-400/40 transition-colors z-0" />
+              <div className="absolute -left-6 -top-6 w-24 h-24 bg-white/5 rounded-full blur-2xl group-hover:bg-white/10 transition-all duration-500" />
+              <div className="w-14 h-14 bg-gradient-to-br from-white/20 to-white/10 rounded-xl flex items-center justify-center text-white mb-6 group-hover:scale-110 shadow-lg shadow-white/10 transition-transform border border-white/20 overflow-hidden relative">
+                <div className="absolute inset-0 bg-white/5 blur-xl group-hover:bg-white/10 transition-colors z-0" />
                 <CpuIcon size={26} className="relative z-10" />
               </div>
-              <h3 className="text-xl font-bold text-white mb-2 relative z-10">AI Integration</h3>
-              <p className="text-sm text-gray-400 relative z-10">
+              <h3 className="text-xl font-bold text-white mb-2 relative z-10 font-geist">AI Integration</h3>
+              <p className="text-sm text-gray-400 relative z-10 font-geist">
                 Pioneering intelligence layers within scaleable apps, transforming static data into predictive insight.
               </p>
             </motion.div>

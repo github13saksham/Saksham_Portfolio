@@ -84,8 +84,8 @@ const Certificates = () => {
   };
 
   return (
-    <section id="certificates" className="py-24 bg-[#0A0A0A] relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-[40vw] h-[40vw] bg-purple-900/10 blur-[150px] rounded-full pointer-events-none" />
+    <section id="certificates" className="py-24 relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-[40vw] h-[40vw] bg-white/5 blur-[150px] rounded-full pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-6 relative z-10">
         <motion.div
@@ -94,8 +94,8 @@ const Certificates = () => {
            viewport={{ once: true }}
            className="text-center mb-16 relative"
         >
-          <h2 className="text-3xl md:text-5xl font-bold font-geist mb-4 text-white">
-            Licenses & <span className="text-purple-500">Certifications</span>
+          <h2 className="text-4xl md:text-6xl font-medium font-nura tracking-tighter mb-4 text-transparent bg-clip-text bg-gradient-to-b from-white to-white/40">
+            Licenses & Certifications
           </h2>
           <p className="text-gray-400 max-w-2xl mx-auto text-lg mb-8">
             A showcase of my verified skills and official credentials.
@@ -104,7 +104,7 @@ const Certificates = () => {
           {isAdmin && (
             <button 
               onClick={() => setShowModal(true)}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-purple-600/20 text-purple-400 border border-purple-500/30 hover:bg-purple-600 hover:text-white transition-all duration-300 font-bold tracking-wide"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/10 text-white border border-white/20 hover:bg-white hover:text-black transition-all duration-300 font-bold tracking-wide"
             >
               <PlusIcon size={18} /> Add New Certificate
             </button>
@@ -125,13 +125,13 @@ const Certificates = () => {
                 whileHover={{ y: -5 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ delay: index * 0.1, type: "spring", stiffness: 100 }}
-                className="glass p-6 md:p-8 rounded-2xl border border-white/5 hover:border-purple-500/50 hover:bg-white/5 transition-all duration-300 relative overflow-hidden group shadow-2xl flex flex-col h-full"
+                className="glass p-6 md:p-8 rounded-2xl border border-white/5 hover:border-primary-main/50 hover:bg-white/5 transition-all duration-300 relative overflow-hidden group shadow-2xl flex flex-col h-full"
               >
-                <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 rounded-full blur-2xl group-hover:bg-purple-500/20 transition-all duration-500" />
+                <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-2xl group-hover:bg-white/10 transition-all duration-500" />
                 
                 <div className="relative z-10 flex flex-col h-full">
                   <div className="flex justify-between items-start mb-6">
-                    <div className="p-3 bg-purple-500/10 rounded-xl border border-purple-500/20 text-purple-400 group-hover:bg-purple-500 group-hover:text-white transition-colors duration-300">
+                    <div className="p-3 bg-white/5 rounded-xl border border-white/10 text-white group-hover:bg-primary-main group-hover:border-primary-main transition-colors duration-300">
                       <AwardIcon size={24} />
                     </div>
                     <div className="flex items-center gap-2">
@@ -150,7 +150,7 @@ const Certificates = () => {
                     </div>
                   </div>
                   
-                  <h3 className="text-xl md:text-2xl font-bold text-white mb-1 md:mb-2 group-hover:text-purple-400 transition-colors">
+                  <h3 className="text-xl md:text-2xl font-bold text-white mb-1 md:mb-2 group-hover:text-primary-light transition-colors">
                     {item.title}
                   </h3>
                   <h4 className="text-sm md:text-base text-gray-400 font-medium mb-3 md:mb-4">{item.issuer}</h4>
@@ -164,7 +164,7 @@ const Certificates = () => {
                       href={item.link} 
                       target="_blank" 
                       rel="noreferrer" 
-                      className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-gray-400 group-hover:text-purple-400 mt-auto transition-colors w-max"
+                      className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-gray-400 group-hover:text-primary-light mt-auto transition-colors w-max"
                     >
                       View Credential <ExternalLinkIcon size={14} />
                     </a>
@@ -195,25 +195,25 @@ const Certificates = () => {
                     <div className="space-y-4">
                         <div>
                             <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Title</label>
-                            <input type="text" className="w-full bg-black/50 border border-white/10 rounded-xl p-3 text-white focus:outline-none focus:border-purple-500" placeholder="e.g. AWS Certified Developer" onChange={e => setNewItem({...newItem, title: e.target.value})} />
+                            <input type="text" className="w-full bg-black/50 border border-white/10 rounded-xl p-3 text-white focus:outline-none focus:border-primary-main" placeholder="e.g. AWS Certified Developer" onChange={e => setNewItem({...newItem, title: e.target.value})} />
                         </div>
                         <div>
                             <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Issuer</label>
-                            <input type="text" className="w-full bg-black/50 border border-white/10 rounded-xl p-3 text-white focus:outline-none focus:border-purple-500" placeholder="e.g. Amazon Web Services" onChange={e => setNewItem({...newItem, issuer: e.target.value})} />
+                            <input type="text" className="w-full bg-black/50 border border-white/10 rounded-xl p-3 text-white focus:outline-none focus:border-primary-main" placeholder="e.g. Amazon Web Services" onChange={e => setNewItem({...newItem, issuer: e.target.value})} />
                         </div>
                         <div>
                             <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Date</label>
-                            <input type="text" className="w-full bg-black/50 border border-white/10 rounded-xl p-3 text-white focus:outline-none focus:border-purple-500" placeholder="e.g. Aug 2024" onChange={e => setNewItem({...newItem, date: e.target.value})} />
+                            <input type="text" className="w-full bg-black/50 border border-white/10 rounded-xl p-3 text-white focus:outline-none focus:border-primary-main" placeholder="e.g. Aug 2024" onChange={e => setNewItem({...newItem, date: e.target.value})} />
                         </div>
                         <div>
                             <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Description</label>
-                            <textarea className="w-full bg-black/50 border border-white/10 rounded-xl p-3 text-white focus:outline-none focus:border-purple-500 h-24" placeholder="Brief details about the certificate..." onChange={e => setNewItem({...newItem, description: e.target.value})}></textarea>
+                            <textarea className="w-full bg-black/50 border border-white/10 rounded-xl p-3 text-white focus:outline-none focus:border-primary-main h-24" placeholder="Brief details about the certificate..." onChange={e => setNewItem({...newItem, description: e.target.value})}></textarea>
                         </div>
                         <div>
                             <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Credential Link (Optional)</label>
-                            <input type="text" className="w-full bg-black/50 border border-white/10 rounded-xl p-3 text-white focus:outline-none focus:border-purple-500" placeholder="https://..." onChange={e => setNewItem({...newItem, link: e.target.value})} />
+                            <input type="text" className="w-full bg-black/50 border border-white/10 rounded-xl p-3 text-white focus:outline-none focus:border-primary-main" placeholder="https://..." onChange={e => setNewItem({...newItem, link: e.target.value})} />
                         </div>
-                        <button onClick={handleSave} className="w-full py-4 bg-purple-600 hover:bg-purple-500 text-white font-bold rounded-xl transition-colors mt-4">
+                        <button onClick={handleSave} className="w-full py-4 bg-white/10 border border-white/20 hover:bg-white/20 text-white font-bold rounded-xl transition-colors mt-4">
                             Save Certificate
                         </button>
                     </div>

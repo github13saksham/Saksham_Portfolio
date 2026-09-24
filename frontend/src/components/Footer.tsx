@@ -10,18 +10,18 @@ const Footer = () => {
   }, []);
 
   return (
-    <footer className="border-t border-white/5 py-12 relative overflow-hidden bg-black/60">
+    <footer className="border-t border-white/5 py-12 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 flex flex-col items-center">
-        <h3 className="text-2xl font-bold font-geist mb-6 text-white tracking-tighter">SM.</h3>
+        <h3 className="text-3xl font-medium font-nura mb-6 text-transparent bg-clip-text bg-gradient-to-b from-white to-white/40 tracking-tighter">SM.</h3>
         
         <div className="flex gap-6 mb-6">
-          <a href={`https://github.com/${import.meta.env.VITE_GITHUB_USERNAME || 'github13saksham'}/`} target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:border-primary-main hover:bg-primary-main/20 transition-all">
+          <a href={`https://github.com/${import.meta.env.VITE_GITHUB_USERNAME || 'github13saksham'}/`} target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:border-white/30 hover:bg-white/10 transition-all">
             <GithubIcon size={20} />
           </a>
-          <a href="https://www.linkedin.com/in/saksham-makhija13/" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:border-blue-500 hover:bg-blue-500/20 transition-all">
+          <a href="https://www.linkedin.com/in/saksham-makhija13/" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:border-white/30 hover:bg-white/10 transition-all">
             <LinkedinIcon size={20} />
           </a>
-          <a href="mailto:smakhija140@gmail.com" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:border-red-500 hover:bg-red-500/20 transition-all">
+          <a href="mailto:smakhija140@gmail.com" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:border-white/30 hover:bg-white/10 transition-all">
             <MailIcon size={20} />
           </a>
         </div>

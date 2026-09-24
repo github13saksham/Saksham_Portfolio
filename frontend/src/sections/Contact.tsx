@@ -32,8 +32,8 @@ const Contact = () => {
     <section id="contact" className="py-24 relative">
       <div className="max-w-3xl mx-auto px-6">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-          <h2 className="text-3xl md:text-5xl font-bold font-geist mb-6 text-center text-white">
-            Let's <span className="text-primary-main">Connect</span>
+          <h2 className="text-4xl md:text-6xl font-medium font-nura tracking-tighter mb-6 text-center text-transparent bg-clip-text bg-gradient-to-b from-white to-white/40">
+            Let's Connect
           </h2>
           <p className="text-center text-gray-400 mb-12">
             Have a project in mind or want to discuss opportunities? I'd love to hear from you.
@@ -90,7 +90,7 @@ const Contact = () => {
           <button 
             type="submit" 
             disabled={status === 'loading'}
-            className="w-full bg-primary-main hover:bg-primary-light text-white font-bold py-4 rounded-lg transition-colors flex justify-center items-center"
+            className="w-full bg-white/10 hover:bg-white/20 text-white border border-white/20 font-bold py-4 rounded-lg transition-colors flex justify-center items-center"
           >
             {status === 'loading' ? (
               <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>

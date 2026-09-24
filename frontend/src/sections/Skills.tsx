@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence, useAnimationFrame, useMotionValue, useTransform, MotionValue } from 'framer-motion';
 import { PlusIcon, XIcon, Trash2Icon } from 'lucide-react';
 import { API_BASE } from '../config';
 
@@ -11,22 +11,66 @@ interface Skill {
   color: string; // accent color for hover glow
 }
 
-interface SkillCategory {
-  category: string;
-  emoji: string;
-  gradient: string;
-  skills: Skill[];
-}
+const TechIcon = ({ 
+  skill, 
+  index, 
+  total, 
+  rotation, 
+  isAdmin, 
+  onDelete 
+}: { 
+  skill: Skill, 
+  index: number, 
+  total: number, 
+  rotation: MotionValue<number>,
+  isAdmin: boolean,
+  onDelete: (id: string) => void
+}) => {
+  const baseAngle = (index / total) * Math.PI * 2;
+  const radius = typeof window !== 'undefined' && window.innerWidth < 768 ? 120 : 200; 
 
-// Map categories to emojis and gradients statically
-const categoryMeta: Record<string, { emoji: string, gradient: string }> = {
-  "Languages": { emoji: "💻", gradient: "from-yellow-500/20 to-orange-500/20" },
-  "Frontend": { emoji: "🎨", gradient: "from-cyan-500/20 to-blue-500/20" },
-  "Backend": { emoji: "⚙️", gradient: "from-green-500/20 to-emerald-500/20" },
-  "Databases": { emoji: "🗄️", gradient: "from-purple-500/20 to-pink-500/20" },
-  "Tools & DevOps": { emoji: "🛠️", gradient: "from-orange-500/20 to-red-500/20" },
-  "Soft Skills": { emoji: "🧠", gradient: "from-indigo-500/20 to-violet-500/20" },
-  "Other": { emoji: "✨", gradient: "from-gray-500/20 to-blue-500/20" }
+  const x = useTransform(rotation, (rot) => Math.sin(baseAngle + rot * (Math.PI / 180)) * radius);
+  const z = useTransform(rotation, (rot) => Math.cos(baseAngle + rot * (Math.PI / 180)) * radius);
+  
+  const scale = useTransform(z, [-radius, radius], [0.5, 1.2]);
+  const opacity = useTransform(z, [-radius, radius], [0.15, 1]);
+  const zIndex = useTransform(z, [-radius, radius], [0, 50], { clamp: true });
+  const zIndexInt = useTransform(zIndex, v => Math.round(v));
+
+  return (
+    <motion.div
+      style={{
+        x,
+        y: 0, // Perfectly equal in line
+        scale,
+        opacity,
+        zIndex: zIndexInt,
+        position: 'absolute'
+      }}
+      className="flex flex-col items-center justify-center w-12 h-12 lg:w-16 lg:h-16 rounded-xl bg-[#111111]/80 backdrop-blur-md border border-white/10 group shadow-[0_0_30px_rgba(230,0,0,0.1)] hover:border-primary-main/50 hover:shadow-[0_0_30px_rgba(230,0,0,0.4)] transition-colors pointer-events-auto cursor-pointer"
+    >
+      {skill.icon ? (
+        <img src={skill.icon} alt={skill.name} className="w-6 h-6 lg:w-8 lg:h-8 drop-shadow-md pointer-events-none select-none" loading="lazy" />
+      ) : (
+        <div className="w-6 h-6 lg:w-8 lg:h-8 rounded-lg pointer-events-none select-none" style={{ background: skill.color }} />
+      )}
+      
+      {/* Tooltip for skill name on hover to keep it clean */}
+      <span className="absolute -top-8 bg-black/90 text-white text-[10px] font-medium px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none border border-white/10">
+        {skill.name}
+      </span>
+
+      {isAdmin && (
+          <button
+            onClick={(e) => { e.stopPropagation(); onDelete(skill.id); }}
+            className="absolute -top-2 -right-2 p-1.5 bg-red-500/80 hover:bg-red-500 rounded-full text-white opacity-0 group-hover:opacity-100 transition-opacity shadow-lg z-50 pointer-events-auto"
+            title="Delete Skill"
+          >
+            <Trash2Icon size={14} />
+          </button>
+      )}
+    </motion.div>
+  );
 };
 
 const Skills = () => {
@@ -34,6 +78,9 @@ const Skills = () => {
   const [showModal, setShowModal] = useState(false);
   const [newItem, setNewItem] = useState<Partial<Skill>>({ category: "Languages", color: "#61DAFB" });
   const isAdmin = typeof window !== 'undefined' ? !!localStorage.getItem('adminToken') : false;
+
+  const rotation = useMotionValue(0);
+  const isDragging = useRef(false);
 
   useEffect(() => {
     fetch(`${API_BASE}/skills`)
@@ -43,6 +90,12 @@ const Skills = () => {
       })
       .catch(err => console.error("Error fetching skills:", err));
   }, []);
+
+  useAnimationFrame((_time, delta) => {
+    if (!isDragging.current) {
+      rotation.set(rotation.get() - delta * 0.02); // Slow continuous rotation
+    }
+  });
 
   const handleSave = async () => {
     if (!newItem.name || !newItem.category) return;
@@ -84,129 +137,79 @@ const Skills = () => {
     }
   };
 
-  // Group skills by category
-  const groupedSkills: SkillCategory[] = [];
-  const groups = skills.reduce((acc, skill) => {
-     if (!acc[skill.category]) acc[skill.category] = [];
-     acc[skill.category].push(skill);
-     return acc;
-  }, {} as Record<string, Skill[]>);
-
-  // Maintain specific order or just use the keys
-  const defaultOrder = ["Languages", "Frontend", "Backend", "Databases", "Tools & DevOps", "Soft Skills", "Other"];
-  for (const cat of defaultOrder) {
-      if (groups[cat]) {
-          groupedSkills.push({
-              category: cat,
-              emoji: categoryMeta[cat]?.emoji || "✨",
-              gradient: categoryMeta[cat]?.gradient || categoryMeta["Other"].gradient,
-              skills: groups[cat]
-          });
-          delete groups[cat];
-      }
-  }
-  // Add any unexpected categories
-  for (const cat in groups) {
-       groupedSkills.push({
-          category: cat,
-          emoji: categoryMeta["Other"].emoji,
-          gradient: categoryMeta["Other"].gradient,
-          skills: groups[cat]
-      });
-  }
-
   return (
-    <section id="skills" className="py-20 md:py-28 bg-black/40 relative overflow-hidden">
-      <div className="absolute top-1/3 left-0 w-[40vw] h-[40vw] bg-primary-dark/5 blur-[120px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-[30vw] h-[30vw] bg-purple-900/5 blur-[100px] rounded-full pointer-events-none" />
+    <section id="skills-3d" className="py-20 md:py-28 relative overflow-hidden">
+      <div className="absolute top-1/3 left-0 w-[50vw] h-[50vw] bg-white/5 blur-[150px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-[40vw] h-[40vw] bg-white/5 blur-[120px] rounded-full pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-5 md:px-6 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-14 md:mb-20"
+      <div className="max-w-7xl mx-auto px-5 md:px-6 relative z-10 flex items-center min-h-[400px] md:min-h-[500px] w-full">
+        
+        {/* Cybernetic Hand Image Background (Positioned behind text) */}
+        <motion.img 
+          src="/hand.png" 
+          alt="Cybernetic Hand"
+          className="absolute bottom-[-10%] md:bottom-[-67%] left-[-10%] md:left-[-10%] lg:left-[-10%] w-[120%] md:w-[100%] lg:w-[105%] max-w-[80%] drop-shadow-[0_-20px_50px_rgba(255,255,255,0.05)] pointer-events-none select-none z-0 opacity-100"
+          animate={{ y: [0, -10, 0] }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+        />
+
+        {/* 3D Carousel Drag Area (Full Screen Overlay) */}
+        <motion.div 
+          className="absolute inset-0 z-20 cursor-grab active:cursor-grabbing flex items-center justify-center touch-none"
+          onPanStart={() => (isDragging.current = true)}
+          onPanEnd={() => (isDragging.current = false)}
+          onPan={(_e, info) => {
+            rotation.set(rotation.get() + info.delta.x * 0.5);
+          }}
         >
-          <h2 className="text-3xl md:text-5xl font-bold font-geist mb-4 text-white">
-            Technical <span className="text-primary-main">Arsenal</span>
+          {/* Carousel Container */}
+          <div className="relative w-full h-full flex items-center justify-center mt-10 lg:ml-[25%]">
+            {skills.map((skill, i) => (
+                <TechIcon 
+                  key={skill.id} 
+                  skill={skill} 
+                  index={i} 
+                  total={skills.length} 
+                  rotation={rotation} 
+                  isAdmin={isAdmin} 
+                  onDelete={handleDelete} 
+                />
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Left Section: Title (Positioned Above Hand) */}
+        <motion.div
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          className="relative z-30 pointer-events-auto w-full max-w-xl text-left"
+        >
+          <h2 className="text-5xl md:text-7xl font-nura font-medium mb-6 text-transparent bg-clip-text bg-gradient-to-b from-white to-white/40 tracking-tighter leading-tight drop-shadow-2xl">
+            DESIGNING <br /> WITH <br /> CLARITY
           </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto text-base md:text-lg mb-8">
-            Everything I use to turn ideas into reality.
+          <p className="text-gray-300 max-w-sm text-base md:text-lg mb-8 leading-relaxed font-medium bg-black/40 backdrop-blur-sm p-4 rounded-xl border border-white/10">
+            My technical arsenal mapped out in a 3D cybernetic space. Drag the tech stack to explore the tools I use to turn ideas into reality.
           </p>
 
           {isAdmin && (
             <button 
               onClick={() => setShowModal(true)}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary-main/20 text-primary-light border border-primary-main/30 hover:bg-primary-main hover:text-white transition-all duration-300 font-bold tracking-wide"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/10 text-white border border-white/20 hover:bg-white hover:text-black transition-all duration-300 font-bold tracking-wide shadow-lg backdrop-blur-md"
             >
               <PlusIcon size={18} /> Add New Skill
             </button>
           )}
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
-          {groupedSkills.map((skillGroup, groupIndex) => (
-            <motion.div
-              key={skillGroup.category}
-              initial={{ opacity: 0, y: 25 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: groupIndex * 0.08, duration: 0.5 }}
-              className="group relative glass p-6 md:p-7 rounded-2xl border border-white/5 hover:border-primary-main/40 transition-all duration-500 overflow-hidden"
-            >
-              <div className={`absolute inset-0 bg-gradient-to-br ${skillGroup.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
-              
-              <div className="relative z-10">
-                <div className="flex items-center gap-3 mb-5">
-                  <span className="text-2xl">{skillGroup.emoji}</span>
-                  <h3 className="text-lg md:text-xl font-bold text-white group-hover:text-primary-light transition-colors tracking-tight">
-                    {skillGroup.category}
-                  </h3>
-                </div>
-
-                <div className="grid grid-cols-2 gap-2.5">
-                  {skillGroup.skills.map((skill, i) => (
-                    <motion.div
-                      key={skill.id}
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: groupIndex * 0.05 + i * 0.04, duration: 0.3 }}
-                      className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-white/[0.03] border border-white/[0.06] hover:bg-white/[0.08] hover:border-white/[0.15] transition-all duration-300 relative group/skill"
-                      style={{ '--skill-color': skill.color } as React.CSSProperties}
-                    >
-                      {skill.icon ? (
-                        <img src={skill.icon} alt={skill.name} className="w-5 h-5 md:w-6 md:h-6 flex-shrink-0 drop-shadow-lg" loading="lazy" />
-                      ) : (
-                        <div className="w-5 h-5 md:w-6 md:h-6 rounded-md flex-shrink-0" style={{ background: skill.color }} />
-                      )}
-                      <span className="text-gray-300 text-xs md:text-sm font-medium truncate flex-grow">
-                        {skill.name}
-                      </span>
-                      
-                      {isAdmin && (
-                          <button
-                            onClick={(e) => { e.stopPropagation(); handleDelete(skill.id); }}
-                            className="absolute -top-1.5 -right-1.5 p-1 bg-red-500 rounded-full text-white opacity-0 group-hover/skill:opacity-100 hover:scale-110 transition-all shadow-lg"
-                            title="Delete Skill"
-                          >
-                            <Trash2Icon size={12} />
-                          </button>
-                      )}
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
       </div>
 
+      {/* Admin Modal */}
       <AnimatePresence>
         {showModal && (
             <motion.div 
                 initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+                className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm pointer-events-auto"
             >
                 <motion.div 
                     initial={{ scale: 0.9, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.9, y: 20 }}
@@ -247,7 +250,7 @@ const Skills = () => {
                             <input type="text" className="w-full bg-black/50 border border-white/10 rounded-xl p-3 text-white focus:outline-none focus:border-primary-main" placeholder="e.g. #61DAFB" value={newItem.color} onChange={e => setNewItem({...newItem, color: e.target.value})} />
                         </div>
                         
-                        <button onClick={handleSave} className="w-full py-4 bg-primary-main hover:bg-primary-dark text-white font-bold rounded-xl transition-colors mt-4">
+                        <button onClick={handleSave} className="w-full py-4 bg-white/10 border border-white/20 hover:bg-white/20 text-white font-bold rounded-xl transition-colors mt-4">
                             Save Skill
                         </button>
                     </div>
