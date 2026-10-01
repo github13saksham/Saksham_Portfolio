@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { API_BASE } from '../config';
-import { SparklesIcon, PlusIcon, XIcon, Trash2Icon, FilterIcon, ChevronDownIcon } from 'lucide-react';
+import { PlusIcon, XIcon, Trash2Icon, FilterIcon, ChevronDownIcon } from 'lucide-react';
 
 interface Skill {
   id: string;
