@@ -46,9 +46,14 @@
   inset: -1px;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(45deg, #e60000, #990000, #0A0A0A);
+  background: linear-gradient(45deg, #3b82f6, #60a5fa, #1e40af);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   pointer-events: none;
+}
+
+.glow-text {
+  color: #60a5fa;
+  text-shadow: 0 0 12px rgba(59, 130, 246, 0.7);
 }

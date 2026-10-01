@@ -52,7 +52,7 @@ const AdminLogin = () => {
         className="fixed bottom-6 right-6 p-3 rounded-full bg-white/5 border border-white/10 text-gray-400 hover:text-white hover:bg-white/10 transition-all z-50 backdrop-blur-md"
         title={isLoggedIn ? "Logout Admin" : "Admin Login"}
       >
-        {isLoggedIn ? <UnlockIcon size={20} className="text-primary-main" /> : <LockIcon size={20} />}
+        {isLoggedIn ? <UnlockIcon size={20} className="text-blue-500" /> : <LockIcon size={20} />}
       </button>
 
       <AnimatePresence>
@@ -88,7 +88,7 @@ const AdminLogin = () => {
                 </div>
                 <button 
                   onClick={handleLogin} 
-                  className="w-full py-3 bg-primary-main hover:bg-primary-dark text-white font-bold rounded-xl transition-colors mt-2"
+                  className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition-colors mt-2"
                 >
                   Login
                 </button>

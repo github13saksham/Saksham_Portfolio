@@ -27,7 +27,7 @@ const Footer = () => {
         </div>
 
         <div className="flex items-center gap-2 mb-8 text-gray-400 bg-white/5 border border-white/10 px-4 py-2 rounded-full text-sm">
-          <ClockIcon size={16} className="text-primary-main" />
+          <ClockIcon size={16} className="text-blue-500" />
           <span className="font-mono tracking-wider">{time.toLocaleTimeString()}</span>
         </div>
         

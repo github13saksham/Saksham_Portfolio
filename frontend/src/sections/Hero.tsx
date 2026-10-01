@@ -6,12 +6,12 @@ const Hero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const imagesRef = useRef<HTMLImageElement[]>([]);
-  
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
   });
-  
+
   const smoothProgress = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
@@ -58,32 +58,31 @@ const Hero = () => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
-    
+
     const img = imagesRef.current[index];
     if (img.complete && img.naturalWidth > 0) {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-      
+
       const scale = Math.max(canvas.width / img.width, canvas.height / img.height);
       const x = (canvas.width / 2) - (img.width / 2) * scale;
-      const y = (canvas.height / 2) - (img.height / 2) * scale + 120; // Shift down by 120px to avoid navbar
-      
+      const y = (canvas.height / 2) - (img.height / 2) * scale + (window.innerWidth < 768 ? 60 : 120);
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
+
       // Draw the frame
       ctx.drawImage(img, x, y, img.width * scale, img.height * scale);
 
-      // If there's a gap at the top, fill it with a black color to submerge it
+      // Gradient blend at top
       if (y > 0) {
-        ctx.fillStyle = '#000000'; // Black background
-        ctx.fillRect(0, 0, canvas.width, y + 2); // +2 for overlap to avoid seam
-        
-        // Add a gradient blend
-        const grad = ctx.createLinearGradient(0, y, 0, y + 120);
-        grad.addColorStop(0, '#000000');
+        ctx.fillStyle = '#0f172a';
+        ctx.fillRect(0, 0, canvas.width, y + 2);
+
+        const grad = ctx.createLinearGradient(0, y, 0, y + 100);
+        grad.addColorStop(0, '#0f172a');
         grad.addColorStop(1, 'transparent');
         ctx.fillStyle = grad;
-        ctx.fillRect(0, y, canvas.width, 120);
+        ctx.fillRect(0, y, canvas.width, 100);
       }
     } else {
       img.onload = () => {
@@ -114,108 +113,136 @@ const Hero = () => {
       id="hero"
     >
       <div className="sticky top-0 w-full h-screen overflow-hidden flex items-center justify-center">
-        
-        {/* Giant "SAKSHAM" Watermark (Placed BEHIND the canvas (z-0) so it's behind the face) */}
-        <motion.div 
+
+        {/* Giant "SAKSHAM" Watermark */}
+        <motion.div
           style={{ opacity: watermarkOpacity, scale: textScale }}
-          className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-20 mt-[10vh]"
+          className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-20 mt-[5vh] md:mt-[10vh]"
         >
-          <motion.span 
-            className="text-[22vw] font-black tracking-tighter text-white/[0.05] uppercase leading-[0.8] text-center font-nura mix-blend-overlay"
+          <motion.span
+            className="text-[16vw] sm:text-[18vw] md:text-[22vw] font-black tracking-tighter text-white/[0.05] uppercase leading-[0.8] text-center font-nura mix-blend-overlay"
           >
             SAKSHAM
           </motion.span>
         </motion.div>
 
-        {/* Canvas Background (z-10) */}
-        <canvas 
-          ref={canvasRef} 
-          className="absolute inset-0 z-10 w-full h-full object-cover pointer-events-none" 
+        {/* Static Image Background */}
+        <img
+          src="/hero-image.png"
+          alt="Saksham Makhija - Hero Background"
+          className="absolute inset-0 z-10 w-full h-full object-cover pointer-events-none"
         />
-        
-        {/* Main Container */}
+
+        {/* Main Content Overlay */}
         <div className="relative z-30 w-full h-full max-w-screen-2xl mx-auto flex flex-col justify-between pointer-events-none">
-          
+
           {/* Top Area */}
-          <div className="flex flex-col md:flex-row justify-between items-start pt-24 lg:pt-28 w-full px-6 lg:px-16">
+          <div className="flex flex-col md:flex-row justify-between items-start pt-20 sm:pt-24 lg:pt-28 w-full px-5 sm:px-8 lg:px-16">
             {/* Top Left: Main Headline */}
-            <motion.div 
+            <motion.div
               style={{ opacity: g1Opacity, y: g1Y }}
-              className="max-w-[85vw] lg:max-w-2xl pointer-events-auto"
+              className="max-w-[92vw] sm:max-w-[85vw] lg:max-w-2xl pointer-events-auto"
             >
-              <h1 className="text-5xl md:text-7xl lg:text-[4.5rem] font-medium tracking-tighter font-nura drop-shadow-2xl">
-                <span className="text-white">The future of</span><br/>
-                <span className="text-white/70">digital web</span><br/>
+              <h1 className="text-3xl sm:text-5xl md:text-7xl lg:text-[4.5rem] font-medium tracking-tighter font-nura drop-shadow-2xl leading-[1.1]">
+                <span className="text-white">The future of</span><br />
+                <span className="text-white/70">digital web</span><br />
                 <span className="text-white/40">experiences</span>
               </h1>
             </motion.div>
-            
+
             {/* Top Right: Bio Paragraph */}
-            <motion.div 
+            <motion.div
               style={{ opacity: g2Opacity, y: g2Y }}
-              className="hidden md:block max-w-[280px] text-left pointer-events-auto mt-6 md:mt-0"
+              className="max-w-[280px] sm:max-w-xs text-left pointer-events-auto mt-4 md:mt-0"
             >
-              <p className="text-gray-300 text-base lg:text-lg leading-snug drop-shadow-lg tracking-tight font-geist">
+              <p className="text-gray-300 text-xs sm:text-sm md:text-base lg:text-lg leading-snug drop-shadow-lg tracking-tight font-geist">
                 Redefines what a web app can be—transforming passive browsing into an immersive, interactive experience.
               </p>
             </motion.div>
           </div>
 
-          {/* Scattered Metadata Tags (Absolute relative to screen) */}
-          {/* Mid Right Tag */}
-          <motion.div 
-            style={{ opacity: g2Opacity, y: g2Y }}
-            className="hidden lg:flex flex-col absolute top-[40%] right-16 -translate-y-1/2 text-right z-30"
+          {/* Mid Metadata Tags */}
+          <motion.div
+            style={{ opacity: g3Opacity, y: g3Y }}
+            className="absolute top-[58%] sm:top-[62%] md:top-[65%] left-0 w-full flex justify-between px-5 sm:px-12 md:px-24 lg:px-32 pointer-events-auto z-30"
           >
-            <span className="text-[10px] text-gray-500 font-semibold tracking-wide mb-0.5">Jun 24</span>
-            <span className="text-xs text-white tracking-tight font-medium">2026</span>
+            <span className="text-xs sm:text-sm md:text-base text-white font-medium tracking-wide font-geist bg-black/40 backdrop-blur-md px-3 py-1 rounded-full border border-white/10 md:bg-transparent md:border-none md:p-0">
+              Saksham Makhija
+            </span>
+            <span className="text-xs sm:text-sm md:text-base text-white/80 font-medium tracking-wide font-geist bg-black/40 backdrop-blur-md px-3 py-1 rounded-full border border-white/10 md:bg-transparent md:border-none md:p-0">
+              Full Stack AI Developer
+            </span>
           </motion.div>
 
-          <motion.div 
-            style={{ opacity: g3Opacity, y: g3Y }}
-            className="absolute top-[65%] left-0 w-full flex justify-between px-12 md:px-24 lg:px-32 pointer-events-auto">
-                <span className="text-sm md:text-base text-white font-medium tracking-wide font-geist">Saksham Makhija</span>
-                <span className="text-sm md:text-base text-white/70 font-medium tracking-wide font-geist">Full Stack Developer</span>
-          </motion.div>
-          
           {/* Bottom Area */}
-          <div className="flex flex-col md:flex-row justify-between items-end pb-12 w-full px-6 lg:px-16">
-            {/* Bottom Left: Visit Site / Explore Button */}
-            <motion.div 
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end pb-8 sm:pb-12 w-full px-5 sm:px-8 lg:px-16">
+            {/* Bottom Left: Explore Button */}
+            <motion.div
               style={{ opacity: g4Opacity, y: g4Y }}
-              className="pointer-events-auto mb-8 md:mb-0"
+              className="pointer-events-auto mb-4 sm:mb-0"
             >
-              <a href="#projects" className="group flex items-center gap-4 px-6 py-4 rounded-2xl bg-white/20 backdrop-blur-lg text-white font-medium hover:bg-white hover:text-black transition-all duration-300 shadow-2xl">
-                <ArrowRightIcon size={20} className="-rotate-45 group-hover:rotate-0 transition-transform duration-300" />
-                <span className="text-sm tracking-wide font-geist">Explore Projects</span>
+              <a
+                href="#projects"
+                className="group flex items-center gap-3 px-5 py-3.5 sm:px-6 sm:py-4 rounded-2xl bg-white/20 backdrop-blur-lg text-white font-medium hover:bg-white hover:text-black transition-all duration-300 shadow-2xl text-xs sm:text-sm"
+              >
+                <ArrowRightIcon size={18} className="-rotate-45 group-hover:rotate-0 transition-transform duration-300" />
+                <span className="tracking-wide font-geist">Explore Projects</span>
               </a>
             </motion.div>
 
-            {/* Bottom Right: Location & Links */}
-            <motion.div 
+            {/* Bottom Right: Location & Mobile Socials */}
+            <motion.div
               style={{ opacity: g4Opacity, y: g4Y }}
-              className="flex items-end gap-12 pointer-events-auto"
+              className="flex items-center gap-4 sm:gap-8 pointer-events-auto"
             >
-              <div className="hidden lg:flex flex-col text-left mb-4">
-                 <span className="text-[10px] text-gray-400 tracking-wide mb-0.5">Location:</span>
-                 <span className="text-xs text-white font-medium">New Delhi, India</span>
+              <div className="flex flex-col text-left">
+                <span className="text-[10px] text-gray-400 tracking-wide">Location:</span>
+                <span className="text-xs text-white font-medium">New Delhi, India</span>
+              </div>
+
+              {/* Mobile direct social links */}
+              <div className="flex md:hidden items-center gap-2">
+                <a
+                  href={`https://github.com/${import.meta.env.VITE_GITHUB_USERNAME || 'github13saksham'}/`}
+                  target="_blank" rel="noreferrer"
+                  className="w-9 h-9 bg-white/10 backdrop-blur-md rounded-full border border-white/20 flex items-center justify-center text-white"
+                  title="GitHub"
+                >
+                  <GithubIcon size={16} />
+                </a>
+                <a
+                  href="https://linkedin.com/in/saksham-makhija-5745b3305"
+                  target="_blank" rel="noreferrer"
+                  className="w-9 h-9 bg-white/10 backdrop-blur-md rounded-full border border-white/20 flex items-center justify-center text-white"
+                  title="LinkedIn"
+                >
+                  <LinkedinIcon size={16} />
+                </a>
+                <a
+                  href="mailto:smakhija140@gmail.com"
+                  target="_blank" rel="noreferrer"
+                  className="w-9 h-9 bg-white/10 backdrop-blur-md rounded-full border border-white/20 flex items-center justify-center text-white"
+                  title="Gmail"
+                >
+                  <MailIcon size={16} />
+                </a>
               </div>
             </motion.div>
           </div>
         </div>
 
-        {/* Floating Social Radial Menu */}
-        <motion.div 
+        {/* Floating Social Radial Menu (Desktop/Tablet md+) */}
+        <motion.div
           style={{ opacity: g4Opacity, y: g4Y }}
-          className="absolute right-0 top-[50%] -translate-y-1/2 z-50 pointer-events-auto"
+          className="hidden md:block absolute right-0 top-[50%] -translate-y-1/2 z-50 pointer-events-auto"
         >
-          <motion.div 
+          <motion.div
             className="relative flex items-center justify-end w-[150px] h-[200px] cursor-pointer group pr-2"
             whileHover="hover"
             initial="initial"
           >
             {/* GitHub */}
-            <motion.a 
+            <motion.a
               href={`https://github.com/${import.meta.env.VITE_GITHUB_USERNAME || 'github13saksham'}/`}
               target="_blank" rel="noreferrer"
               variants={{
@@ -229,8 +256,8 @@ const Hero = () => {
               <GithubIcon size={20} />
             </motion.a>
             {/* LinkedIn */}
-            <motion.a 
-              href="https://linkedin.com/in/saksham-makhija13/"
+            <motion.a
+              href="https://linkedin.com/in/saksham-makhija-5745b3305"
               target="_blank" rel="noreferrer"
               variants={{
                 hover: { x: -85, y: 0, opacity: 1, scale: 1 },
@@ -243,7 +270,7 @@ const Hero = () => {
               <LinkedinIcon size={20} />
             </motion.a>
             {/* Gmail */}
-            <motion.a 
+            <motion.a
               href="mailto:smakhija140@gmail.com"
               target="_blank" rel="noreferrer"
               variants={{

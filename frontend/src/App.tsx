@@ -26,7 +26,7 @@ function App() {
     return (
       <div className="h-screen w-screen flex items-center justify-center bg-background text-white">
         <div className="flex flex-col items-center">
-          <div className="w-16 h-16 border-4 border-primary-dark border-t-primary-light rounded-full animate-spin"></div>
+          <div className="w-16 h-16 border-4 border-blue-700 border-t-blue-400 rounded-full animate-spin"></div>
           <p className="mt-4 font-geist tracking-widest uppercase text-sm text-gray-400">Loading Portfolio...</p>
         </div>
       </div>

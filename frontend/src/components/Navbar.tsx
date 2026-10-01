@@ -27,9 +27,8 @@ const Navbar = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-gradient-to-b from-black via-black/80 to-transparent ${
-        scrolled ? 'pt-3 pb-8 backdrop-blur-md' : 'pt-5 pb-10'
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-transparent py-4' : 'bg-transparent py-6'
+        }`}
     >
       <div className="max-w-full mx-auto px-6 flex justify-between items-center">
         <a href="#" className="flex items-center">
@@ -44,7 +43,7 @@ const Navbar = () => {
               className="text-sm font-medium text-gray-300 hover:text-white transition-colors relative group"
             >
               {link.name}
-              <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-primary-main transition-all group-hover:w-full"></span>
+              <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-blue-500 transition-all group-hover:w-full"></span>
             </a>
           ))}
         </div>
@@ -88,7 +87,7 @@ const Navbar = () => {
               <a
                 href="#contact"
                 onClick={() => setMobileOpen(false)}
-                className="inline-flex justify-center px-5 py-2.5 rounded-full text-sm font-medium text-white bg-primary-main/20 border border-primary-main/30 hover:bg-primary-main transition-all"
+                className="inline-flex justify-center px-5 py-2.5 rounded-full text-sm font-medium text-white bg-blue-500/20 border border-blue-500/30 hover:bg-blue-500 transition-all"
               >
                 Hire Me
               </a>

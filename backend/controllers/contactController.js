@@ -44,7 +44,7 @@ const submitContact = async (req, res) => {
               headers: {
                 'Authorization': `Bearer ${resendKey}`,
                 'Content-Type': 'application/json',
-                'Content-Length': body.length
+                'Content-Length': Buffer.byteLength(body)
               }
             };
             const req = https.request(options, (res) => {

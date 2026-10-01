@@ -10,18 +10,8 @@ const allowedOrigin = process.env.FRONTEND_URL ? process.env.FRONTEND_URL.replac
 
 app.use(cors({
   origin: function (origin, callback) {
-    // allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
-    
-    const isVercel = origin.endsWith('.vercel.app');
-    const isLocal = origin.startsWith('http://localhost');
-    const isConfigured = origin === allowedOrigin;
-
-    if (isVercel || isLocal || isConfigured) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
+    // Allow all domains (useful for custom domains)
+    callback(null, true);
   },
   credentials: true
 }));
