@@ -464,11 +464,11 @@ const Projects = () => {
             href={`https://github.com/${import.meta.env.VITE_GITHUB_USERNAME || 'github13saksham'}?tab=repositories`}
             target="_blank"
             rel="noreferrer"
-            className="group inline-flex items-center gap-3 px-8 py-4 rounded-full bg-white/[0.04] border border-white/10 text-gray-300 hover:text-white hover:bg-white/[0.08] hover:border-blue-500/30 transition-all duration-300 font-medium text-sm font-geist"
+            className="group inline-flex items-center gap-3 px-8 py-4 rounded-full bg-white text-black hover:bg-gray-200 transition-all duration-300 font-bold text-sm font-geist shadow-lg"
           >
-            <GithubIcon size={20} className="group-hover:rotate-[360deg] transition-transform duration-700" />
+            <GithubIcon size={20} />
             Explore All Repositories on GitHub
-            <ExternalLinkIcon size={14} className="opacity-50 group-hover:opacity-100" />
+            <ExternalLinkIcon size={14} className="opacity-70 group-hover:opacity-100" />
           </a>
         </motion.div>
 

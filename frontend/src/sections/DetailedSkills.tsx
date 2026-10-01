@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { API_BASE } from '../config';
-import { PlusIcon, XIcon, Trash2Icon, FilterIcon, ChevronDownIcon } from 'lucide-react';
+import { SparklesIcon, PlusIcon, XIcon, Trash2Icon, FilterIcon, ChevronDownIcon } from 'lucide-react';
 
 interface Skill {
   id: string;
@@ -16,7 +16,7 @@ const defaultSkills: Skill[] = [
   { id: 's2', category: 'Languages', name: 'JavaScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg', color: '#F7DF1E' },
   { id: 's3', category: 'Languages', name: 'SQL', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg', color: '#4479A1' },
   { id: 's4', category: 'Languages', name: 'C', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg', color: '#A8B9CC' },
-  
+
   { id: 's5', category: 'ML / AI', name: 'TensorFlow', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg', color: '#FF6F00' },
   { id: 's6', category: 'ML / AI', name: 'Keras', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/keras/keras-original.svg', color: '#3b82f6' },
   { id: 's7', category: 'ML / AI', name: 'scikit-learn', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/scikitlearn/scikitlearn-original.svg', color: '#F7931E' },
@@ -29,7 +29,7 @@ const defaultSkills: Skill[] = [
   { id: 's12a2', category: 'Frontend', name: 'CSS3', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg', color: '#1572B6' },
   { id: 's12', category: 'Frontend', name: 'React.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg', color: '#61DAFB' },
   { id: 's12b', category: 'Frontend', name: 'Next.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg', color: '#FFFFFF' },
-  
+
   { id: 's13', category: 'Backend', name: 'Node.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg', color: '#339933' },
   { id: 's14', category: 'Backend', name: 'Express.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg', color: '#FFFFFF' },
   { id: 's15', category: 'Backend', name: 'REST APIs', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg', color: '#0096D6' },
@@ -204,11 +204,10 @@ const DetailedSkills = () => {
                 >
                   <button
                     onClick={() => { setActiveCategory('All'); setDropdownOpen(false); }}
-                    className={`w-full px-4 py-2.5 text-left text-sm flex items-center justify-between transition-colors ${
-                      activeCategory === 'All'
+                    className={`w-full px-4 py-2.5 text-left text-sm flex items-center justify-between transition-colors ${activeCategory === 'All'
                         ? 'bg-blue-600/20 text-blue-400 font-semibold border-l-2 border-blue-500'
                         : 'text-gray-300 hover:bg-white/10 hover:text-white'
-                    }`}
+                      }`}
                   >
                     <span>All Categories</span>
                     <span className="text-xs text-gray-400 font-mono">({skills.length})</span>
@@ -223,11 +222,10 @@ const DetailedSkills = () => {
                       <button
                         key={cat}
                         onClick={() => { setActiveCategory(cat); setDropdownOpen(false); }}
-                        className={`w-full px-4 py-2.5 text-left text-sm flex items-center justify-between transition-colors ${
-                          isSelected
+                        className={`w-full px-4 py-2.5 text-left text-sm flex items-center justify-between transition-colors ${isSelected
                             ? 'bg-blue-600/20 text-blue-400 font-semibold border-l-2 border-blue-500'
                             : 'text-gray-300 hover:bg-white/10 hover:text-white'
-                        }`}
+                          }`}
                       >
                         <span>{cat}</span>
                         <span className="text-xs text-gray-400 font-mono">({count})</span>
@@ -270,9 +268,8 @@ const DetailedSkills = () => {
                     <img
                       src={skill.icon}
                       alt={skill.name}
-                      className={`w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.6)] group-hover:drop-shadow-[0_0_25px_rgba(59,130,246,0.75)] transition-all duration-300 ${
-                        ['express', 'github'].some(k => skill.name.toLowerCase().includes(k)) ? 'brightness-0 invert' : ''
-                      }`}
+                      className={`w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.6)] group-hover:drop-shadow-[0_0_25px_rgba(59,130,246,0.75)] transition-all duration-300 ${['express', 'github'].some(k => skill.name.toLowerCase().includes(k)) ? 'brightness-0 invert' : ''
+                        }`}
                       loading="lazy"
                     />
                   ) : (

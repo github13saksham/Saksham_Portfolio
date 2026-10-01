@@ -182,18 +182,18 @@ const Skills = () => {
   };
 
   return (
-    <section id="skills-3d" className="py-20 md:py-28 relative overflow-hidden bg-black">
+    <section id="skills-3d" className="py-10 md:py-16 relative overflow-hidden bg-black">
       <div className="absolute top-1/3 left-0 w-[50vw] h-[50vw] bg-blue-600/15 blur-[150px] rounded-full pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-[40vw] h-[40vw] bg-blue-600/15 blur-[120px] rounded-full pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-5 md:px-6 relative z-10 w-full flex flex-col items-start min-h-[600px]">
+      <div className="max-w-7xl mx-auto px-5 md:px-6 relative z-10 w-full flex flex-col items-start">
 
         {/* Section Header ABOVE Hand: Single Line Title with Proper Word Spacing & Description */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="relative z-30 pointer-events-auto w-full text-left mb-6 md:mb-10"
+          className="relative z-30 pointer-events-auto w-full text-left mb-2 md:mb-4"
         >
           <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-nura font-medium mb-4 text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-white/40 leading-tight drop-shadow-2xl whitespace-nowrap flex flex-wrap items-center gap-x-3 sm:gap-x-4">
             <span>DESIGNING</span>
@@ -215,7 +215,7 @@ const Skills = () => {
         </motion.div>
 
         {/* Interactive Cybernetic Hand & 3D Revolving Tech Stack Container */}
-        <div className="relative w-full min-h-[450px] md:min-h-[500px] flex items-center justify-center">
+        <div className="relative w-full h-[300px] md:h-[400px] flex items-center justify-center mt-4">
 
           {/* Cybernetic Hand Image Background (Restored Original Position) */}
           <motion.img
