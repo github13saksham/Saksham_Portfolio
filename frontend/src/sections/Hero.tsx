@@ -183,7 +183,7 @@ const Hero = () => {
             >
               <a
                 href="#projects"
-                className="group flex items-center gap-3 px-5 py-3.5 sm:px-6 sm:py-4 rounded-2xl bg-white/20 backdrop-blur-lg text-white font-medium hover:bg-white hover:text-black transition-all duration-300 shadow-2xl text-xs sm:text-sm"
+                className="group flex items-center gap-3 px-5 py-3.5 sm:px-6 sm:py-4 rounded-2xl bg-white text-black font-bold hover:bg-blue-600 hover:text-white transition-all duration-300 shadow-2xl text-xs sm:text-sm"
               >
                 <ArrowRightIcon size={18} className="-rotate-45 group-hover:rotate-0 transition-transform duration-300" />
                 <span className="tracking-wide font-geist">Explore Projects</span>
@@ -205,7 +205,7 @@ const Hero = () => {
                 <a
                   href={`https://github.com/${import.meta.env.VITE_GITHUB_USERNAME || 'github13saksham'}/`}
                   target="_blank" rel="noreferrer"
-                  className="w-9 h-9 bg-white/10 backdrop-blur-md rounded-full border border-white/20 flex items-center justify-center text-white"
+                  className="w-9 h-9 bg-white rounded-full flex items-center justify-center text-black shadow-lg"
                   title="GitHub"
                 >
                   <GithubIcon size={16} />
@@ -213,7 +213,7 @@ const Hero = () => {
                 <a
                   href="https://linkedin.com/in/saksham-makhija-5745b3305"
                   target="_blank" rel="noreferrer"
-                  className="w-9 h-9 bg-white/10 backdrop-blur-md rounded-full border border-white/20 flex items-center justify-center text-white"
+                  className="w-9 h-9 bg-white rounded-full flex items-center justify-center text-[#0A66C2] shadow-lg"
                   title="LinkedIn"
                 >
                   <LinkedinIcon size={16} />
@@ -221,7 +221,7 @@ const Hero = () => {
                 <a
                   href="mailto:smakhija140@gmail.com"
                   target="_blank" rel="noreferrer"
-                  className="w-9 h-9 bg-white/10 backdrop-blur-md rounded-full border border-white/20 flex items-center justify-center text-white"
+                  className="w-9 h-9 bg-white rounded-full flex items-center justify-center text-[#EA4335] shadow-lg"
                   title="Gmail"
                 >
                   <MailIcon size={16} />

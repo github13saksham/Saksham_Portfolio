@@ -82,6 +82,7 @@ const Projects = () => {
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<string>('All');
   const [activeIdx, setActiveIdx] = useState<number>(0);
+  const [activeFrame, setActiveFrame] = useState<'tablet' | 'mobile'>('tablet');
 
   // Admin controls
   const [showModal, setShowModal] = useState(false);
@@ -161,6 +162,8 @@ const Projects = () => {
 
   const activeProject = filteredProjects[activeIdx] || filteredProjects[0] || defaultProjects[0];
 
+  const hasValidUrl = activeProject.html_url && activeProject.html_url !== '#' && activeProject.html_url.startsWith('http');
+
   return (
     <section id="projects" className="py-20 md:py-28 relative overflow-hidden bg-black">
       {/* Background glow effects */}
@@ -209,7 +212,7 @@ const Projects = () => {
             {isAdmin && (
               <button
                 onClick={() => setShowModal(true)}
-                className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/10 text-white border border-white/20 hover:bg-white hover:text-black transition-all duration-300 font-bold tracking-wide text-xs md:text-sm font-geist"
+                className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/10 text-white border border-white/20 hover:bg-white hover:text-black transition-all duration-300 font-bold tracking-wide text-xs md:text-sm font-geist cursor-pointer"
               >
                 <PlusIcon size={16} /> Add Project
               </button>
@@ -239,13 +242,14 @@ const Projects = () => {
                   initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4 }}
-                  className="relative w-full max-w-3xl bg-[#0f0f13] rounded-[28px] sm:rounded-[36px] p-2.5 sm:p-3 border-2 border-white/20 shadow-[0_30px_90px_rgba(0,0,0,0.95)] overflow-hidden"
+                  onClick={() => setActiveFrame('tablet')}
+                  className={`relative w-[90%] sm:w-full max-w-3xl bg-[#0f0f13] rounded-[28px] sm:rounded-[36px] p-2.5 sm:p-3 border-2 border-white/20 shadow-[0_30px_90px_rgba(0,0,0,0.95)] overflow-hidden cursor-pointer transition-all duration-300 ${activeFrame === 'tablet' ? 'z-30 scale-[1.02] shadow-blue-500/20' : 'z-10 scale-[0.98] opacity-80'}`}
                 >
                   {/* iPad Screen Glass View - Clean Preview Screenshot Image or Project Mockup */}
                   <div className="relative h-[250px] sm:h-[400px] md:h-[480px] w-full bg-black rounded-[20px] sm:rounded-[28px] overflow-hidden border border-white/10 shadow-inner">
-                    {activeProject.tablet_image ? (
+                    {activeProject.tablet_image || hasValidUrl ? (
                       <img
-                        src={activeProject.tablet_image}
+                        src={activeProject.tablet_image || `https://image.thum.io/get/width/1200/crop/800/${activeProject.html_url}`}
                         alt={`${activeProject.name} iPad Pro Preview`}
                         className="w-full h-full object-cover object-top"
                       />
@@ -285,20 +289,21 @@ const Projects = () => {
                   initial={{ opacity: 0, x: 25, scale: 0.95 }}
                   animate={{ opacity: 1, x: 0, scale: 1 }}
                   transition={{ duration: 0.4, delay: 0.1 }}
-                  className="absolute right-[-10px] sm:right-[-20px] md:right-[-30px] bottom-[-15px] sm:bottom-[-25px] w-40 sm:w-52 md:w-60 bg-[#0f0f13] rounded-[40px] sm:rounded-[50px] p-2 sm:p-2.5 border-2 border-white/30 shadow-[0_35px_100px_rgba(0,0,0,0.95)] z-20 overflow-hidden ring-1 ring-white/10"
+                  onClick={() => setActiveFrame('mobile')}
+                  className={`absolute right-0 sm:right-[-20px] md:right-[-30px] bottom-[-15px] sm:bottom-[-25px] w-36 sm:w-52 md:w-60 bg-[#0f0f13] rounded-[36px] sm:rounded-[50px] p-2 sm:p-2.5 border-2 border-white/30 shadow-[0_35px_100px_rgba(0,0,0,0.95)] overflow-hidden ring-1 ring-white/10 cursor-pointer transition-all duration-300 ${activeFrame === 'mobile' ? 'z-40 scale-105 shadow-blue-500/30' : 'z-20 scale-95 opacity-90'}`}
                 >
                   {/* iPhone Screen Glass View - Clean Preview Screenshot Image or Project Mockup */}
-                  <div className="relative h-[320px] sm:h-[420px] md:h-[480px] w-full bg-black rounded-[32px] sm:rounded-[42px] overflow-hidden border border-white/10 shadow-inner">
+                  <div className="relative h-[280px] sm:h-[420px] md:h-[480px] w-full bg-black rounded-[28px] sm:rounded-[42px] overflow-hidden border border-white/10 shadow-inner">
                     
                     {/* iPhone 15 Pro Dynamic Island */}
-                    <div className="absolute top-2.5 left-1/2 -translate-x-1/2 w-16 sm:w-20 h-3.5 sm:h-4 bg-black rounded-full border border-white/15 z-30 pointer-events-none flex items-center justify-between px-2">
+                    <div className="absolute top-2.5 left-1/2 -translate-x-1/2 w-14 sm:w-20 h-3.5 sm:h-4 bg-black rounded-full border border-white/15 z-30 pointer-events-none flex items-center justify-between px-2">
                       <span className="w-1.5 h-1.5 rounded-full bg-blue-500/80 animate-ping" />
                       <span className="w-1.5 h-1.5 rounded-full bg-black border border-white/20" />
                     </div>
 
-                    {activeProject.mobile_image ? (
+                    {activeProject.mobile_image || hasValidUrl ? (
                       <img
-                        src={activeProject.mobile_image}
+                        src={activeProject.mobile_image || `https://image.thum.io/get/width/400/crop/800/iphoneX/${activeProject.html_url}`}
                         alt={`${activeProject.name} iPhone 15 Pro Preview`}
                         className="w-full h-full object-cover object-top"
                       />
@@ -464,7 +469,7 @@ const Projects = () => {
             href={`https://github.com/${import.meta.env.VITE_GITHUB_USERNAME || 'github13saksham'}?tab=repositories`}
             target="_blank"
             rel="noreferrer"
-            className="group inline-flex items-center gap-3 px-8 py-4 rounded-full bg-white text-black hover:bg-gray-200 transition-all duration-300 font-bold text-sm font-geist shadow-lg"
+            className="group inline-flex items-center gap-3 px-8 py-4 rounded-full bg-white text-black hover:bg-gray-100 transition-all duration-300 font-bold text-sm font-geist shadow-lg border-2 border-transparent hover:border-blue-500"
           >
             <GithubIcon size={20} />
             Explore All Repositories on GitHub

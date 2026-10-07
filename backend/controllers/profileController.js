@@ -50,9 +50,9 @@ exports.getCertificates = async (req, res) => {
 
 exports.addCertificate = async (req, res) => {
   try {
-    const { title, issuer, date, description, link } = req.body;
+    const { title, issuer, date, description, link, logoUrl, fileUrl } = req.body;
     const item = await prisma.certificate.create({
-      data: { title, issuer, date, description, link }
+      data: { title, issuer, date, description, link, logoUrl, fileUrl }
     });
     res.json(item);
   } catch (error) {

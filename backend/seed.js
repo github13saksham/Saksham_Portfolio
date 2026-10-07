@@ -92,32 +92,58 @@ async function main() {
   // 4. Seed Certificates
   const certificates = [
     {
-      date: "Completed",
-      title: "AWS – Amazon Web Services (30 hrs)",
-      issuer: "AWS",
-      description: "Comprehensive training covering AWS core services, deployment, and cloud architecture.",
-      link: ""
+      date: "April 2023",
+      title: "Deep Dive On AWS Fargate (30 hrs)",
+      issuer: "Sharda University / AWS",
+      description: "Successfully completed 30 hours Value Added Course on Deep Dive On AWS Fargate, organized by Sharda School of Engineering & Technology.",
+      link: "/certificates/aws_fargate_certificate.pdf",
+      fileUrl: "/certificates/aws_fargate_certificate.png",
+      logoUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg"
+    },
+    {
+      date: "Dec 2025",
+      title: "Major Project Research – ICSDS-2025",
+      issuer: "ICSDS-2025 (Hooghly Eng. & Tech College)",
+      description: "Presented research paper titled 'LEVERAGING AI FOR PRECISE COST ESTIMATION FOR SOFTWARE PROJECTS' in the International Conference ICSDS-2025.",
+      link: "/certificates/major_project_icsds2025.pdf",
+      fileUrl: "/certificates/major_project_icsds2025.png",
+      logoUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
+    },
+    {
+      date: "Oct 2023",
+      title: "100 Days of Code: Complete Python Pro Bootcamp",
+      issuer: "Udemy (Dr. Angela Yu)",
+      description: "Mastered Python programming, object-oriented software development, data science, and web applications through 58 hours of intensive coding.",
+      link: "/certificates/udemy_python_bootcamp.pdf",
+      fileUrl: "/certificates/udemy_python_bootcamp.png",
+      logoUrl: "https://www.vectorlogo.zone/logos/udemy/udemy-icon.svg"
+    },
+    {
+      date: "Summer 2023",
+      title: "Summer Bootcamp on MERN Stack",
+      issuer: "EZ Trainings & Sharda University",
+      description: "Awarded Certificate of Completion for intensive hands-on summer bootcamp in full-stack web development using MongoDB, Express, React, and Node.js.",
+      link: "/certificates/mern_summer_bootcamp.pdf",
+      fileUrl: "/certificates/mern_summer_bootcamp.png",
+      logoUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
     },
     {
       date: "Completed",
       title: "Generative AI: Introduction & Applications",
       issuer: "IBM",
-      description: "Deep dive into foundational Generative AI models, prompt engineering, and business applications.",
-      link: ""
-    },
-    {
-      date: "Completed",
-      title: "Python Bootcamp",
-      issuer: "Udemy",
-      description: "Advanced Python programming encompassing data structures, algorithms, and full-stack integration.",
-      link: ""
+      description: "Deep dive into foundational Generative AI models, prompt engineering, and real-world business applications.",
+      link: "",
+      fileUrl: "",
+      logoUrl: "https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg"
     },
     {
       date: "In Progress",
-      title: "Generative AI",
+      title: "Generative AI Engineering",
       issuer: "GeeksforGeeks",
-      description: "Exploring advanced AI topics including LLMs, RAG pipelines, and vector databases.",
-      link: ""
+      description: "Exploring advanced AI topics including LLMs, RAG pipelines, vector databases, and autonomous agents.",
+      link: "",
+      fileUrl: "",
+      logoUrl: "https://upload.wikimedia.org/wikipedia/commons/4/43/GeeksforGeeks.svg"
     }
   ];
 
